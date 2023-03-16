@@ -12,17 +12,28 @@ public class Main {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String input = "";
         try {
-            while (!input.equalsIgnoreCase("stop")) {
-                showMenu();
+            while (!input.equalsIgnoreCase("exit")) {
                 input = in.readLine();
-                if(input.equals("1")) {
-                    System.out.println("Wow, you choose 1");
+                if(input.equals("open")) {
+                    System.out.println("Successfully opened file");
                 }
-                else if(input.equals("2")) {
-                    System.out.println("Wow, you choose 2");
+                else if(input.equals("close")) {
+                    System.out.println("successfully closed file");
                 }
-                else if(input.equals("3")) {
-                    System.out.println("Wow you choose 3");
+                else if(input.equals("save")) {
+                    System.out.println("Successfully saved file");
+                }
+                else if(input.equals("save as")){
+                    System.out.println("Successfully saved file as file");
+                }
+                else if(input.equals("help")){
+                    System.out.println("The following commands are supported: " + "\n" +
+                            "open          <file> opens <file> " + "\n" +
+                            "close         closes currently opened file " + "\n" +
+                            "save          saves the currently open file " + "\n" +
+                            "saveas <file>   saves the currently open file in <file> " + "\n" +
+                            "help          prints this information " + "\n" +
+                            "exit          exists the program ");
                 }
             }
         } catch (IOException e) {
@@ -30,7 +41,4 @@ public class Main {
         }
     }
 
-    public static void showMenu() {
-        System.out.println("Enter 1, 2, 3, or \"stop\" to exit");
-    }
 }
