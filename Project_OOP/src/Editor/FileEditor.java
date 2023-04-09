@@ -16,8 +16,7 @@ public class FileEditor {
         fileContent = "";
     }
 
-    public boolean openFile(String filePath) {
-        boolean isOpen;
+    public String openFile(String filePath) {
         try {
             File file = new File(filePath);
             Scanner scanner = new Scanner(file);
@@ -29,13 +28,12 @@ public class FileEditor {
             scanner.close();
             currentFile = file;
             fileContent = stringBuilder.toString();
-            System.out.println("Successfully opened " + currentFile.getName());
-            isOpen = true;
+
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + filePath);
-            isOpen = false;
+            return null;
         }
-        return isOpen;
+        return fileContent;
     }
 
     public void saveFile() {
