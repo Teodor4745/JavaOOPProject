@@ -1,1 +1,6 @@
-hellooo
+<people>
+    <person id="5">
+        <name>John</name>
+        <age>18</age>
+    </person>
+</people>

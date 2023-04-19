@@ -43,7 +43,7 @@ public class Main {
                         System.out.println("Successfully opened " + commands[1]);
                         isOpen = true;
                         content = fileEditor.openFile(commands[1]);
-                        System.out.println(content);
+                        xmlEditor.validate(content);
                     }
                 }
 
