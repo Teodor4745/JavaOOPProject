@@ -3,6 +3,7 @@ package Parser;
 import com.sun.source.tree.Tree;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TreeNode {
     String text;
@@ -11,19 +12,19 @@ public class TreeNode {
 
     public TreeNode(String text) {
         this.text = text;
-        children = null;
+        children = new ArrayList<>();
         parent = null;
     }
 
     public void addChild(String text){
         TreeNode newNode = new TreeNode(text);
-        this.children.add(newNode);
         newNode.parent = this;
+        this.children.add(newNode);
     }
 
     public TreeNode getChild(String text){
         for(int i = 0;i<children.size();i++){
-            if(children.get(i).text == text){
+            if(Objects.equals(children.get(i).text, text)){
                 return children.get(i);
             }
 

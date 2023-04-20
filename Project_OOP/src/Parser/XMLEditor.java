@@ -29,10 +29,11 @@ public class XMLEditor {
         }
         return tag;
     }
-    public void validate(String fileContent){
+    public TreeNode validate(String fileContent){
         setFileContent(fileContent);
 
         String tag = "";
+        String text = "";
         int i = 0;
         TreeNode xmlTree = new TreeNode("root");
         TreeNode currentParent = xmlTree;
@@ -44,26 +45,57 @@ public class XMLEditor {
                     j++;
                 }
                 tag = fileContent.substring(i + 1, j);
-                if(tag.charAt(1) == '/' && currentParent.parent != null){
+                if(tag.charAt(0) == '/' && currentParent.parent != null){
                     currentParent = currentParent.parent;
                 }
-                else if(tag.charAt(1) == '/' && currentParent.parent == null){
+                else if(tag.charAt(0) == '/' && currentParent.parent == null){
                     break;
                 }
                 else{
-                    currentParent.addChild(tag);
-                    currentParent = currentParent.getChild(tag);
+                    currentParent.addChild("&tag " + tag);
+                    currentParent = currentParent.getChild("&tag " + tag);
                 }
 
 
+
+            }
+
+            if(fileContent.charAt(i) == '>'){
+                if(i+1 > fileContent.length()){
+                    break;
+                }
+                i++;
+                while(fileContent.charAt(i) == '\n' || fileContent.charAt(i) == ' '){
+                    i++;
+                    if(i >= fileContent.length())
+                        break;
+                }
+                if(i == fileContent.length()){
+                    break;
+                }
+                if(fileContent.charAt(i) != '<' ){
+                    int j = i;
+                    while(fileContent.charAt(j) != '<'){
+                        j++;
+
+                    }
+                    text = fileContent.substring(i,j);
+                    currentParent.addChild("&val " + text);
+                }
 
             }
             else{
                 i++;
             }
+
+
+
         }
 
 
+
+
+        return xmlTree;
 
     }
 
