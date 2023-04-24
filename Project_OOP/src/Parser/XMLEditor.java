@@ -1,36 +1,11 @@
 package Parser;
 
-import org.w3c.dom.Node;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 public class XMLEditor {
-    String fileContent;
-
-    private String getNextTag(int i){
-
-        String tag = "";
-        i = 0;
-        while (i < fileContent.length()) {
-            if (fileContent.charAt(i) == '<') {
-                int j = i;
-                while (j < fileContent.length() && fileContent.charAt(j) != '>') {
-                    j++;
-                }
-                tag = fileContent.substring(i + 1, j);
-
-            }
-            else{
-                i++;
-            }
-        }
-        return tag;
-    }
-    public TreeNode validate(String fileContent){
-        setFileContent(fileContent);
+    public TreeNode extract(String fileContent){
 
         String tag = "";
         String text = "";
@@ -99,7 +74,69 @@ public class XMLEditor {
 
     }
 
-    public void setFileContent(String fileContent) {
-        this.fileContent = fileContent;
+    public TreeNode validateID(TreeNode treeNode){
+        Set<String> usedIds = new HashSet<>();
+        Stack<TreeNode> treeIterationStack = new Stack();
+        treeIterationStack.push(treeNode);
+        while (!treeIterationStack.isEmpty()) {
+
+
+
+
+                for(TreeNode child : treeNode.children ) {
+                    if (child.text.startsWith("&tag")) {
+                        if (child.text.contains("id=")) {
+                            for (int i = child.text.indexOf("id="); i < child.text.length(); i++) {
+
+                                if (child.text.charAt(i) == '=') {
+                                    int startIndexId = i;
+                                    int endIndexId = i;
+                                    for (int t = 0; t < child.text.length(); t++) {
+                                        if (child.text.charAt(i) != '>' && child.text.charAt(i) != '"')
+                                            t++;
+                                        endIndexId = t;
+                                    }
+                                    String idValue = child.text.substring(startIndexId, endIndexId);
+                                    if (usedIds.contains(idValue)) {
+                                        String oldIdValue = idValue;
+                                        int z = 0;
+                                        while (usedIds.contains(idValue)) {
+                                            z++;
+                                            idValue = idValue + "_" + z;
+                                        }
+                                        child.text.replace(oldIdValue, idValue);
+                                    } else {
+                                        usedIds.add(idValue);
+                                    }
+                                }
+
+                            }
+                        } else {
+                            for (int i = 0; i < child.text.length(); i++) {
+                                if (child.text.charAt(i) == ' ' || i == child.text.length() - 1) {
+                                    int newId = ((int) ((Math.random() * (1000 - 0))));
+                                    String newIdString = Integer.toString(newId);
+                                    String replaceString = String.valueOf(child.text.charAt(i));
+                                    if (usedIds.contains("id=" + newIdString))
+                                        child.text.replace(replaceString, replaceString + "id=" + newIdString);
+                                    else {
+                                        i--;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+        }
+
+
+
+        return treeNode;
     }
+
+
 }

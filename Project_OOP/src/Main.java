@@ -1,9 +1,13 @@
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 import Commands.Help;
 import Editor.FileEditor;
+import Parser.DataExtractor;
+import Parser.DataValidator;
 import Parser.XMLEditor;
+import XML.Element;
 
 public class Main {
 
@@ -43,7 +47,17 @@ public class Main {
                         System.out.println("Successfully opened " + commands[1]);
                         isOpen = true;
                         content = fileEditor.openFile(commands[1]);
-                        xmlEditor.validate(content);
+                        DataExtractor dataExtractor = new DataExtractor();
+                        ArrayList<Element> myArrayList = dataExtractor.extract(content);
+                        DataValidator dataValidator = new DataValidator();
+                        myArrayList = dataValidator.validate(myArrayList);
+                        for(int i = 0;i<myArrayList.size();i++){
+                            System.out.println(myArrayList.get(i).getTagName());
+                            for(Map.Entry<String,String> set : myArrayList.get(i).getAttributes().entrySet()){
+                                System.out.println(set.getValue());
+                            }
+                        }
+
                     }
                 }
 
