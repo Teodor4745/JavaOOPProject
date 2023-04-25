@@ -17,6 +17,7 @@ public class Element {
 
     public Element() {
         this.innerElements = new ArrayList<Element>();
+        this.attributes = new HashMap<String,String>();
     }
 
     public String getTagName() {

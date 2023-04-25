@@ -37,7 +37,7 @@ public class CLI {
                     new ExitCommand().execute();
                     break;
                 case "child":
-                    new ChildCommand().execute();
+                    new ChildCommand(editor.getXmlEditor(),command).execute();
                     break;
                 case "print":
                     new PrintCommand(editor.getXmlEditor()).execute();
@@ -50,6 +50,15 @@ public class CLI {
                     break;
                 case "children":
                     new ChildrenCommand(editor.getXmlEditor(),command).execute();
+                    break;
+                case "text":
+                    new  TextCommand(editor.getXmlEditor(),command).execute();
+                    break;
+                case "newchild":
+                    new NewChildCommand(editor,editor.getXmlEditor(),command).execute();
+                    break;
+                case "delete":
+                    new DeleteCommand(editor,editor.getXmlEditor(),command).execute();
                     break;
                     default:
                     System.out.println("Invalid command. Type 'help' to see available commands.");

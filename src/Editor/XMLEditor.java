@@ -38,13 +38,17 @@ public class XMLEditor {
             for(Map.Entry<String,String> set : element.getAttributes().entrySet()){
                 stringBuilder.append(" ").append(set.getKey()).append("=").append('"').append(set.getValue()).append('"');
             }
-            stringBuilder.append(">" + '\n');
+            stringBuilder.append(">");
             if(element.getText() != null){
-                stringBuilder.append(getIndent(element.getDepth()));
-                stringBuilder.append("   ").append(element.getText()).append('\n');
+                stringBuilder.append(element.getText());
+            }
+            else{
+                stringBuilder.append('\n');
             }
             if(element.getInnerElements().size() == 0){
-                stringBuilder.append(getIndent(element.getDepth()));
+                if(element.getText() == null){
+                    stringBuilder.append(getIndent(element.getDepth()));
+                }
                 stringBuilder.append("</").append(element.getTagName()).append(">").append('\n');
             }
             if(element.getParent() != null && element.getInnerElements().size() == 0){
@@ -52,7 +56,9 @@ public class XMLEditor {
                 while(counterElement.getParent() != null && counterElement.getParent().getInnerElements().size() > 0){
                     if(counterElement.getParent().getInnerElements().get(counterElement.getParent().getInnerElements().size()-1) == counterElement)
                     {
-                        stringBuilder.append(getIndent(counterElement.getDepth()-1));
+                        if(counterElement.getParent().getText() == null){
+                            stringBuilder.append(getIndent(counterElement.getDepth()-1));
+                        }
                         stringBuilder.append("</").append(counterElement.getParent().getTagName()).append(">").append('\n');
                         counterElement = counterElement.getParent();
                     }
@@ -144,22 +150,129 @@ public class XMLEditor {
         String id = command[1];
 
         for(Element element : elements){
-            if(element.getInnerElements().size() > 0){
                 for(Map.Entry<String,String> set : element.getAttributes().entrySet()){
                     if(Objects.equals(set.getKey(), "id") && Objects.equals(set.getValue(), id)){
-                        for (Element childElement : element.getInnerElements()){
-                            System.out.println("element: " + childElement.getTagName() + "has elements:");
-                            for(Map.Entry<String,String> childSet : element.getAttributes().entrySet()){
-                                System.out.println(childSet.getKey() + " = " + childSet.getValue());
+                        if(element.getInnerElements().size() > 0){
+                            for (Element childElement : element.getInnerElements()){
+                                if(childElement.getAttributes().size() > 0){
+                                    System.out.println("element: " + childElement.getTagName() + " has attributes: ");
+                                    for(Map.Entry<String,String> childSet : childElement.getAttributes().entrySet()){
+                                        System.out.println(childSet.getKey() + " = " + childSet.getValue());
+                                    }
+                                }
+                                else {
+                                    System.out.println("Element " + childElement.getTagName() + " has no attributes");
+                                }
                             }
+                        }
+                        else{
+                            System.out.println("Element has no child elements");
                         }
                     }
                 }
-            }
-            else {
-                System.out.println("Element has no child elements");
+
+        }
+
+    }
+
+    public void child(String[] command){
+        if(command.length != 3) {
+            System.out.println("Wrong number of arguments. command is: child <id> <n>");
+            return;
+        }
+        String id = command[1];
+        int n = Integer.parseInt(command[2]);
+        if(n <= 0){
+            System.out.println("n must be a positive number");
+            return;
+        }
+
+        for(Element element : elements){
+            for(Map.Entry<String,String> set : element.getAttributes().entrySet()){
+                if(Objects.equals(set.getKey(), "id") && Objects.equals(set.getValue(), id)){
+                    if(element.getInnerElements().size() == 0){
+                        System.out.println("No child elements");
+                    }
+                    else if(element.getInnerElements().size() < n){
+                        System.out.println("Number you have given: " + n + " is larger than number of child elements " + element.getInnerElements().size());
+                    }
+                    else {
+                        System.out.println("child element number " + Integer.toString(n) + " is : " + element.getInnerElements().get(n-1).getTagName());
+                    }
+                }
             }
         }
+    }
+
+    public void elementText(String[] command){
+        if(command.length != 2) {
+            System.out.println("Wrong number of arguments. command is: text <id>");
+            return;
+        }
+        String id = command[1];
+        Element element = findElementById(id);
+        if(element == null) {
+            System.out.println("No element with such id");
+            return;
+        }
+        else{
+            if(element.getText() == null){
+                System.out.println("Element " + element.getTagName() + " has no text");
+            }
+            else {
+                System.out.println("Element " + element.getTagName() + " has text: " + element.getText());
+            }
+        }
+    }
+
+    public void newChild(String[] command){
+        if(command.length != 2) {
+            System.out.println("Wrong number of arguments. command is: newchild <id>");
+            return;
+        }
+        String id = command[1];
+        Element element = findElementById(id);
+        if(element == null) {
+            System.out.println("No element with such id");
+            return;
+        }
+        else{
+            Element newChild = new Element();
+            newChild.setTagName("newchild");
+            newChild.setParent(element);
+            elements.add(newChild);
+            element.getInnerElements().add(newChild);
+            DataValidator dataValidator = new DataValidator();
+            elements = dataValidator.validate(elements);
+            toText();
+        }
+    }
+
+    public void deleteAttribute(String[] command){
+        if(command.length != 3) {
+            System.out.println("Wrong number of arguments. command is: delete <id> <key>");
+            return;
+        }
+        String id = command[1];
+        String key = command[2];
+        if(key.equals("id")){
+            System.out.println("Cannot delete element id");
+            return;
+        }
+        Element element = findElementById(id);
+        if(element == null) {
+            System.out.println("No element with such id");
+            return;
+        }
+        for(Map.Entry<String,String> set : element.getAttributes().entrySet()){
+            if(Objects.equals(set.getKey(), key)){
+               element.getAttributes().remove(key);
+                System.out.println("Successfully deleted key " + key + " from element " + element.getTagName());
+                toText();
+               return;
+            }
+        }
+        System.out.println("No such key found in element " + element.getTagName() + " with id" + id);
 
     }
 
@@ -173,6 +286,17 @@ public class XMLEditor {
 
     public String getFileContent() {
         return fileContent;
+    }
+
+    public Element findElementById(String id){
+        for(Element element : elements){
+            for(Map.Entry<String,String> set : element.getAttributes().entrySet()){
+                if(Objects.equals(set.getKey(), "id") && Objects.equals(set.getValue(), id)){
+                    return element;
+                }
+            }
+        }
+        return null;
     }
 
 
