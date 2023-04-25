@@ -1,5 +1,4 @@
 package Editor;
-import Parser.DataExtractor;
 
 import java.io.*;
 

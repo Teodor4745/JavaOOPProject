@@ -1,6 +1,7 @@
-      <people id="1" ivan="georgi" gosho="5">
+      <people id="1" ivan="barabarabara" gosho="5">
          <name id="1_1">
             Hi
+         
          
          
          </name>
@@ -10,11 +11,13 @@
                   Zoe
                
                
+               
                </name>
             </animal>
          </age>
          <john id="5">
             20
+         
          
          
          </john>

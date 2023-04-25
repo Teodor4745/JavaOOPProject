@@ -1,7 +1,5 @@
 package CLI;
 
-import Editor.TextEditor;
-
 public class HelpCommand implements Command {
     private static final String HELP_TEXT = "Available commands:\n" +
             "open <filename> - open a file\n" +

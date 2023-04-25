@@ -3,7 +3,6 @@ package XMLCommands;
 import CLI.Command;
 import Editor.TextEditor;
 import Editor.XMLEditor;
-import org.w3c.dom.Text;
 
 public class SetCommand implements Command {
     private XMLEditor xmlEditor;

@@ -3,8 +3,6 @@ package XMLCommands;
 import CLI.Command;
 import Editor.XMLEditor;
 
-import java.util.Objects;
-
 public class SelectCommand implements Command {
     private XMLEditor xmlEditor;
     private String[] command;

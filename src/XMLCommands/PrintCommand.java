@@ -1,7 +1,6 @@
 package XMLCommands;
 
 import CLI.Command;
-import Editor.TextEditor;
 import Editor.XMLEditor;
 
 public class PrintCommand implements Command {
