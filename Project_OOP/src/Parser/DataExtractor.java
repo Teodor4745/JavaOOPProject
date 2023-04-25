@@ -1,6 +1,6 @@
 package Parser;
 
-import XML.Element;
+import XMLStructure.Element;
 
 import java.util.ArrayList;
 import java.util.HashMap;

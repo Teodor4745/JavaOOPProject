@@ -1,4 +1,4 @@
-package XML;
+package XMLStructure;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,0 @@
-<people id="5" gosho="5" ivan="lolo">
-    <name>Hi</name>
-    <age>5</age>
-</people>

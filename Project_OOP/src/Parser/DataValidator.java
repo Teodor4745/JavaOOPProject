@@ -1,6 +1,6 @@
 package Parser;
 
-import XML.Element;
+import XMLStructure.Element;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,22 +15,31 @@ public class DataValidator {
 
             if(allElements.get(i).getAttributes().containsKey("id")){
                 for(Map.Entry<String,String> set : allElements.get(i).getAttributes().entrySet()){
-                    if(set.getKey() == "id" && uniqueIds.contains(set.getValue())){
-                        int t = 0;
-                        while(uniqueIds.contains(set.getValue())){
-                            set.setValue(set.getValue() + "_" + t);
+                    if(set.getKey().equals("id")){
+                        if(uniqueIds.contains(set.getValue())){
+                            int t = 1;
+                            while(uniqueIds.contains(set.getValue())){
+                                set.setValue(set.getValue() + "_" + t);
+                                t++;
+                            }
                         }
+                        uniqueIds.add(set.getValue());
+
                     }
                 }
             }
         }
         for(int i = 0;i<allElements.size();i++){
             if(!allElements.get(i).getAttributes().containsKey("id")){
-                int newId = ((int) ((Math.random() * (1000 - 0))));
-                String newIdString = Integer.toString(newId);
-                while(uniqueIds.contains(newIdString)){
-                    newId = ((int) ((Math.random() * (1000 - 0))));
+                String newIdString = "";
+                int newId = 0;
+                for(int t = 1; t < 10000; t++){
+                    newId = t;
                     newIdString = Integer.toString(newId);
+                    if(!uniqueIds.contains(newIdString)){
+                        uniqueIds.add(newIdString);
+                        break;
+                    }
                 }
                 allElements.get(i).getAttributes().put("id",newIdString);
             }
