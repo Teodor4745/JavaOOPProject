@@ -19,7 +19,7 @@ public class CLI {
 
             switch (command[0]) {
                 case "open":
-                    new OpenCommand(command,editor).execute();
+                    new OpenCommand(command, editor).execute();
                     break;
                 case "close":
                     new CloseCommand(editor).execute();
@@ -28,7 +28,7 @@ public class CLI {
                     new SaveCommand(editor).execute();
                     break;
                 case "saveas":
-                    new SaveAsCommand(editor,command).execute();
+                    new SaveAsCommand(editor, command).execute();
                     break;
                 case "help":
                     new HelpCommand().execute();
@@ -37,30 +37,35 @@ public class CLI {
                     new ExitCommand().execute();
                     break;
                 case "child":
-                    new ChildCommand(editor.getXmlEditor(),command).execute();
+                    new ChildCommand(editor.getXmlEditor(), command).execute();
                     break;
                 case "print":
                     new PrintCommand(editor.getXmlEditor()).execute();
                     break;
                 case "select":
-                    new SelectCommand(editor.getXmlEditor(),command).execute();
+                    new SelectCommand(editor.getXmlEditor(), command).execute();
                     break;
                 case "set":
-                    new SetCommand(editor,editor.getXmlEditor(),command).execute();
+                    new SetCommand(editor, editor.getXmlEditor(), command).execute();
                     break;
                 case "children":
-                    new ChildrenCommand(editor.getXmlEditor(),command).execute();
+                    new ChildrenCommand(editor.getXmlEditor(), command).execute();
                     break;
                 case "text":
-                    new  TextCommand(editor.getXmlEditor(),command).execute();
+                    new TextCommand(editor.getXmlEditor(), command).execute();
                     break;
                 case "newchild":
-                    new NewChildCommand(editor,editor.getXmlEditor(),command).execute();
+                    new NewChildCommand(editor, editor.getXmlEditor(), command).execute();
                     break;
                 case "delete":
-                    new DeleteCommand(editor,editor.getXmlEditor(),command).execute();
+                    new DeleteCommand(editor, editor.getXmlEditor(), command).execute();
                     break;
-                    default:
+                case "xpath":
+                    new XpathCommand(editor.getXmlEditor(), command).execute();
+                    break;
+                case "xpathhelp":
+                    new XpathHelpCommand().execute();
+                default:
                     System.out.println("Invalid command. Type 'help' to see available commands.");
                     break;
             }
