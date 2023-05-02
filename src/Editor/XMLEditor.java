@@ -289,6 +289,7 @@ public class XMLEditor {
         String xpath = command[1];
         XPathOperator xPathOperator = new XPathOperator(elements,command[1]);
         xPathOperator.extractXpath();
+        xPathOperator.runXpathInstructions();
 
     }
 

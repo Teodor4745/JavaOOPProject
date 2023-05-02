@@ -113,10 +113,40 @@ public class XPathOperator {
 
     }
 
-    private void runXpathInstructions(){
+    public void runXpathInstructions(){
+        ArrayList<Element> newElements = new ArrayList<>();
+        boolean firstOperation = true;
         for (Map.Entry<String, String> set : xpathMap.entrySet()) {
             String tag = set.getKey();
             String instructions = set.getValue();
+
+            if(tag.equals("")){
+                System.out.println("Invalid xpath command");
+                return;
+            }
+            if(firstOperation){
+                for(Element element : elements){
+                    if(element.getTagName().equals(tag)){
+                        newElements.add(element);
+                    }
+                }
+                firstOperation = false;
+            }
+            else{
+                ArrayList<Element> childElements = new ArrayList<>();
+                for(Element element : newElements){
+                    for(Element childElement : element.getInnerElements()){
+                        childElements.add(childElement);
+                    }
+                }
+                newElements = childElements;
+            }
+
+
+
+            for(int i = 0;i<instructions.length();i++){
+
+            }
         }
     }
 
