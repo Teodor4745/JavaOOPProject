@@ -13,7 +13,7 @@ public class AttributeExtractor {
                 while (fullTag.charAt(i) != ' ' && i < fullTag.length() - 1) {
                     i++;
                 }
-                String tagName = "";
+                String tagName;
                 if(i+1 == fullTag.length()){
                      tagName = fullTag.substring(0,i+1);
                 }

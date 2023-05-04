@@ -3,8 +3,8 @@ package CLI;
 import Editor.TextEditor;
 
 class SaveAsCommand implements Command {
-    private String[] filePath;
-    private TextEditor editor;
+    private final String[] filePath;
+    private final TextEditor editor;
 
     public SaveAsCommand(TextEditor editor,String[] command) {
         this.editor = editor;
@@ -12,6 +12,10 @@ class SaveAsCommand implements Command {
     }
 
     public void execute() {
-        editor.saveFileAs(filePath);
+        try {
+            editor.saveFileAs(filePath);
+        } catch (Exception e) {
+            System.out.println("Error saving file");
+        }
     }
 }

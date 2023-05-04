@@ -3,8 +3,8 @@ package CLI;
 import Editor.TextEditor;
 
 class OpenCommand implements Command {
-    private String[] command;
-    private TextEditor editor;
+    private final String[] command;
+    private final TextEditor editor;
 
     public OpenCommand(String[] command,TextEditor editor) {
         this.editor = editor;
@@ -14,6 +14,11 @@ class OpenCommand implements Command {
 
     @Override
     public void execute() {
-        editor.openFile(command);
+        try {
+            editor.openFile(command);
+        } catch (Exception e) {
+            System.out.println("Error while reading or validating file");
+            new CloseCommand(editor).execute();
+        }
     }
 }

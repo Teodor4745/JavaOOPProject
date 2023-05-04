@@ -5,9 +5,9 @@ import Editor.TextEditor;
 import Editor.XMLEditor;
 
 public class SetCommand implements Command {
-    private XMLEditor xmlEditor;
-    private String[] command;
-    private TextEditor textEditor;
+    private final XMLEditor xmlEditor;
+    private final String[] command;
+    private final TextEditor textEditor;
 
     public SetCommand(TextEditor textEditor,XMLEditor xmlEditor, String[] command) {
         this.textEditor = textEditor;
@@ -20,7 +20,6 @@ public class SetCommand implements Command {
     public void execute() {
         if(xmlEditor == null){
             System.out.println("No file has been opened");
-            return;
         }
         else{
             xmlEditor.set(command);

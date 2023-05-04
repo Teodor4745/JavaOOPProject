@@ -4,8 +4,8 @@ import CLI.Command;
 import Editor.XMLEditor;
 
 public class ChildrenCommand implements Command {
-    private XMLEditor xmlEditor;
-    private String[] command;
+    private final XMLEditor xmlEditor;
+    private final String[] command;
 
     public ChildrenCommand(XMLEditor xmlEditor,String[] command) {
         this.xmlEditor = xmlEditor;
@@ -17,7 +17,6 @@ public class ChildrenCommand implements Command {
     public void execute() {
         if(xmlEditor == null){
             System.out.println("No file has been opened");
-            return;
         }
         else{
             xmlEditor.children(command);

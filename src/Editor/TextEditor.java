@@ -1,6 +1,7 @@
 package Editor;
 
 import java.io.*;
+import java.util.Objects;
 
 public class TextEditor {
     private File file;
@@ -36,12 +37,11 @@ public class TextEditor {
             }
             reader.close();
             fileOpened = true;
-            System.out.println("File opened: " + filename);
         } catch (IOException e) {
             System.out.println("Error opening file: " + e.getMessage());
         }
 
-        if(content == ""){
+        if(Objects.equals(content, "")){
             System.out.println("XML file is empty");
             return;
         }
@@ -49,6 +49,7 @@ public class TextEditor {
         xmlEditor.open(content);
         this.xmlEditor = xmlEditor;
         content = xmlEditor.getFileContent();
+        System.out.println("File opened: " + filename);
     }
 
     public void closeFile() {
@@ -102,16 +103,8 @@ public class TextEditor {
         }
     }
 
-    public String getContent() {
-        return content;
-    }
-
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public boolean isFileOpened() {
-        return fileOpened;
     }
 
     public XMLEditor getXmlEditor() {

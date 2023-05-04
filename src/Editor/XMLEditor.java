@@ -88,7 +88,6 @@ public class XMLEditor {
         Element element = findElementById(id);
         if (element == null) {
             System.out.println("No element with such id");
-            return;
         }
         else{
             for (Map.Entry<String, String> set : element.getAttributes().entrySet()) {
@@ -116,7 +115,6 @@ public class XMLEditor {
         Element element = findElementById(id);
         if (element == null) {
             System.out.println("No element with such id");
-            return;
         }
         else{
             for (Map.Entry<String, String> set : element.getAttributes().entrySet()) {
@@ -141,7 +139,6 @@ public class XMLEditor {
         Element element = findElementById(id);
         if (element == null) {
             System.out.println("No element with such id");
-            return;
         } else {
             if (element.getInnerElements().size() > 0) {
                 for (Element childElement : element.getInnerElements()) {
@@ -177,14 +174,13 @@ public class XMLEditor {
         Element element = findElementById(id);
         if (element == null) {
             System.out.println("No element with such id");
-            return;
         } else {
             if (element.getInnerElements().size() == 0) {
                 System.out.println("No child elements");
             } else if (element.getInnerElements().size() < n) {
                 System.out.println("Number you have given: " + n + " is larger than number of child elements " + element.getInnerElements().size());
             } else {
-                System.out.println("child element number " + Integer.toString(n) + " is : " + element.getInnerElements().get(n - 1).getTagName());
+                System.out.println("child element number " + n + " is : " + element.getInnerElements().get(n - 1).getTagName());
             }
         }
     }
@@ -198,7 +194,6 @@ public class XMLEditor {
         Element element = findElementById(id);
         if (element == null) {
             System.out.println("No element with such id");
-            return;
         } else {
             if (element.getText() == null) {
                 System.out.println("Element " + element.getTagName() + " has no text");
@@ -217,7 +212,6 @@ public class XMLEditor {
         Element element = findElementById(id);
         if (element == null) {
             System.out.println("No element with such id");
-            return;
         } else {
             Element newChild = new Element();
             newChild.setTagName("newchild");
@@ -259,11 +253,7 @@ public class XMLEditor {
     }
 
     public String getIndent(int depth) {
-        StringBuilder indent = new StringBuilder("   ");
-        for (int t = 0; t < depth; t++) {
-            indent.append("   ");
-        }
-        return indent.toString();
+        return "   " + "   ".repeat(Math.max(0, depth));
     }
 
     public String getFileContent() {
@@ -286,7 +276,6 @@ public class XMLEditor {
             System.out.println("Wrong number of arguments. command is: xpath <xpath>");
             return;
         }
-        String xpath = command[1];
         XPathOperator xPathOperator = new XPathOperator(elements,command[1]);
         xPathOperator.extractXpath();
         xPathOperator.runXpathInstructions();

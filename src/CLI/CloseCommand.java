@@ -3,7 +3,7 @@ package CLI;
 import Editor.TextEditor;
 
 public class CloseCommand implements Command {
-    private TextEditor editor;
+    private final TextEditor editor;
 
     public CloseCommand(TextEditor editor) {
         this.editor = editor;

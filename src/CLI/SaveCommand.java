@@ -3,7 +3,7 @@ package CLI;
 import Editor.TextEditor;
 
 public class SaveCommand implements Command {
-    private TextEditor editor;
+    private final TextEditor editor;
 
     public SaveCommand(TextEditor editor) {
         this.editor = editor;

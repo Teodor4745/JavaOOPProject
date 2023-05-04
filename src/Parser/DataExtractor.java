@@ -40,12 +40,11 @@ public class DataExtractor {
                     childElement.setParent(currentElement);
                     if(firstElement){
                        firstElement = false;
-                       currentElement = childElement;
                     }
                     else{
                         currentElement.getInnerElements().add(childElement);
-                        currentElement = childElement;
                     }
+                    currentElement = childElement;
                     allElements.add(currentElement);
 
 

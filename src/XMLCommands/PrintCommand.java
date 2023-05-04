@@ -4,7 +4,7 @@ import CLI.Command;
 import Editor.XMLEditor;
 
 public class PrintCommand implements Command {
-    private XMLEditor xmlEditor;
+    private final XMLEditor xmlEditor;
 
     public PrintCommand(XMLEditor xmlEditor) {
         this.xmlEditor = xmlEditor;
@@ -15,7 +15,6 @@ public class PrintCommand implements Command {
     public void execute() {
         if(xmlEditor == null){
             System.out.println("No file has been opened");
-            return;
         }
         else{
             xmlEditor.print();
