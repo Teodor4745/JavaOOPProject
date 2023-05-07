@@ -1,8 +1,8 @@
-package CLI;
+package CLI.GeneralCommands;
 
 import Editor.TextEditor;
 
-class OpenCommand implements Command {
+public class OpenCommand implements Command {
     private final String[] command;
     private final TextEditor editor;
 
@@ -18,7 +18,6 @@ class OpenCommand implements Command {
             editor.openFile(command);
         } catch (Exception e) {
             System.out.println("Error while reading or validating file");
-            new CloseCommand(editor).execute();
         }
     }
 }

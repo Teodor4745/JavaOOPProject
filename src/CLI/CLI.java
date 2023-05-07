@@ -1,13 +1,25 @@
 package CLI;
 
+import CLI.GeneralCommands.*;
 import Editor.TextEditor;
-import XMLCommands.*;
+import CLI.XMLCommands.*;
 
 import java.util.Scanner;
 
+/**
+ * This class resembles the Command Line Interface
+ * It takes different commands as text input from the user and executes them.
+ * The commands are predefined classes. Every time a command is executed, an instance of the specific class is created.
+ */
 public class CLI {
     private static final TextEditor editor = new TextEditor();
 
+    /**
+     * The different commands take different arguments in their constructors.
+     * If they must access the file that has been opened they take the TextEditor instance as an argument.
+     * If the command must use specific XML logic it also takes the XMLEditor instance as an argument.
+     * Also to get the specific information in the command, the command is also passed.
+     */
     public static void run() {
         Scanner scanner = new Scanner(System.in);
         String input;

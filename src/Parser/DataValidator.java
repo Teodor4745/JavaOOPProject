@@ -7,7 +7,15 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Validates all elements so that they follow the implied rules
+ */
 public class DataValidator {
+    /**
+     * @param allElements an ArrayList of all elements
+     * @return  returns the new modified ArrayList that is validated
+     * Checks all elements for their IDs so that there are no duplicates and every element has an ID
+     */
     public ArrayList<Element> validate(ArrayList<Element> allElements){
         Set<String> uniqueIds = new HashSet<>();
 

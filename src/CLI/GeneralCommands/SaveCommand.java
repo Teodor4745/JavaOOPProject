@@ -1,16 +1,16 @@
-package CLI;
+package CLI.GeneralCommands;
 
 import Editor.TextEditor;
 
-public class CloseCommand implements Command {
+public class SaveCommand implements Command {
     private final TextEditor editor;
 
-    public CloseCommand(TextEditor editor) {
+    public SaveCommand(TextEditor editor) {
         this.editor = editor;
     }
 
     @Override
     public void execute() {
-        editor.closeFile();
+        editor.saveFile();
     }
 }

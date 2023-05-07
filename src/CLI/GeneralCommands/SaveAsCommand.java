@@ -1,8 +1,8 @@
-package CLI;
+package CLI.GeneralCommands;
 
 import Editor.TextEditor;
 
-class SaveAsCommand implements Command {
+public class SaveAsCommand implements Command {
     private final String[] filePath;
     private final TextEditor editor;
 

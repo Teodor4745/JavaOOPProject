@@ -32,7 +32,13 @@ public class XMLEditor {
             }
             element.setDepth(i);
         }
+
+        ArrayList<Element> newElements = new ArrayList<>(elements);
         for (Element element : elements) {
+            if(!newElements.contains(element)){
+                continue;
+            }
+
             stringBuilder.append(getIndent(element.getDepth()));
             stringBuilder.append("<").append(element.getTagName());
             //Extract attributes
@@ -40,7 +46,8 @@ public class XMLEditor {
                 stringBuilder.append(" ").append(set.getKey()).append("=").append('"').append(set.getValue()).append('"');
             }
             stringBuilder.append(">");
-            if (element.getText() != null) {
+
+         if (element.getText() != null) {
                 stringBuilder.append(element.getText());
             } else {
                 stringBuilder.append('\n');
@@ -68,6 +75,12 @@ public class XMLEditor {
 
 
             }
+
+
+
+
+
+
         }
         this.fileContent = stringBuilder.toString();
     }
@@ -143,13 +156,17 @@ public class XMLEditor {
             if (element.getInnerElements().size() > 0) {
                 for (Element childElement : element.getInnerElements()) {
                     if (childElement.getAttributes().size() > 0) {
-                        System.out.println("element: " + childElement.getTagName() + " has attributes: ");
+                        System.out.println("Element: " + childElement.getTagName() + " has attributes: ");
                         for (Map.Entry<String, String> childSet : childElement.getAttributes().entrySet()) {
                             System.out.println(childSet.getKey() + " = " + childSet.getValue());
                         }
                     } else {
                         System.out.println("Element " + childElement.getTagName() + " has no attributes");
                     }
+                    if(childElement.getText() != null){
+                        System.out.println(childElement.getTagName() + " has text:" + childElement.getText());
+                    }
+                    System.out.println('\n');
                 }
             } else {
                 System.out.println("Element has no child elements");
@@ -204,19 +221,39 @@ public class XMLEditor {
     }
 
     public void newChild(String[] command) {
-        if (command.length != 2) {
-            System.out.println("Wrong number of arguments. command is: newchild <id>");
+        if (command.length != 3) {
+            System.out.println("Wrong number of arguments. command is: newchild <id> <name>");
             return;
         }
         String id = command[1];
+        String name = command[2];
         Element element = findElementById(id);
         if (element == null) {
             System.out.println("No element with such id");
         } else {
             Element newChild = new Element();
-            newChild.setTagName("newchild");
+            newChild.setTagName(name);
             newChild.setParent(element);
-            elements.add(newChild);
+            int index = 0;
+                for(int i = 0; i<elements.size(); i++){
+                    if(element.equals(elements.get(i))){
+                        if(element.getInnerElements().size() == 0){
+                            index = i+1;
+                        }
+                        else{
+                            Element counterElement = element;
+                            while (counterElement.getInnerElements().size() > 0){
+                                counterElement = counterElement.getInnerElements().get(counterElement.getInnerElements().size()-1);
+                            }
+                            for(int t = i; t<elements.size();t++){
+                                if(counterElement.equals(elements.get(t))){
+                                    index = t+1;
+                                }
+                            }
+                        }
+                    }
+                }
+                elements.add(index,newChild);
             element.getInnerElements().add(newChild);
             DataValidator dataValidator = new DataValidator();
             elements = dataValidator.validate(elements);
@@ -253,7 +290,7 @@ public class XMLEditor {
     }
 
     public String getIndent(int depth) {
-        return "   " + "   ".repeat(Math.max(0, depth));
+        return "   ".repeat(Math.max(0, depth-1));
     }
 
     public String getFileContent() {

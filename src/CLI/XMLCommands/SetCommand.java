@@ -1,15 +1,15 @@
-package XMLCommands;
+package CLI.XMLCommands;
 
-import CLI.Command;
+import CLI.GeneralCommands.Command;
 import Editor.TextEditor;
 import Editor.XMLEditor;
 
-public class DeleteCommand implements Command {
+public class SetCommand implements Command {
     private final XMLEditor xmlEditor;
     private final String[] command;
     private final TextEditor textEditor;
 
-    public DeleteCommand(TextEditor textEditor,XMLEditor xmlEditor, String[] command) {
+    public SetCommand(TextEditor textEditor,XMLEditor xmlEditor, String[] command) {
         this.textEditor = textEditor;
         this.xmlEditor = xmlEditor;
         this.command = command;
@@ -22,7 +22,7 @@ public class DeleteCommand implements Command {
             System.out.println("No file has been opened");
         }
         else{
-            xmlEditor.deleteAttribute(command);
+            xmlEditor.set(command);
             this.textEditor.setContent(xmlEditor.getFileContent());
         }
     }

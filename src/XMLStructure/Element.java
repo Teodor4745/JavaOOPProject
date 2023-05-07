@@ -3,6 +3,13 @@ package XMLStructure;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This class resembles an XML element.
+ * Every element has fields: tag name, attributes, inner elements and text.
+ * It also has fields: parent and depth. Having these fields greatly helps with operations and algorithms with any element.
+ * The constructor only initializes the fields that are collections.
+ * The methods are getters and setters. They let us access the element's fields.
+ */
 public class Element {
     private String tagName;
     private HashMap<String,String> attributes;

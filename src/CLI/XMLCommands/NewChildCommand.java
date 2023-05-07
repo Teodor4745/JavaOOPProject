@@ -1,6 +1,6 @@
-package XMLCommands;
+package CLI.XMLCommands;
 
-import CLI.Command;
+import CLI.GeneralCommands.Command;
 import Editor.TextEditor;
 import Editor.XMLEditor;
 

@@ -1,0 +1,22 @@
+<cities id="1">
+   <city id="2" province="Sofia-Grad">
+      <name id="6">Sofia</name>
+      <population id="7" year="2020">1,152,000</population>
+      <gdpus id="8">55,000,000,000</gdpus>
+   </city>
+   <city id="3" province="Plovdiv">
+      <name id="9">Plovdiv</name>
+      <population id="10" year="2018">346,000</population>
+      <gdpus id="11">11,000,000,000</gdpus>
+   </city>
+   <city id="4" province="Varna">
+      <name id="12">Varna</name>
+      <population id="13" year="2021">332,000</population>
+      <gdpus id="14">9,000,000</gdpus>
+   </city>
+   <city id="5" province="Burgas">
+      <name id="15">Burgas</name>
+      <population id="16" year="2022">202,000</population>
+      <gdpus id="17">7,000,000</gdpus>
+   </city>
+</cities>

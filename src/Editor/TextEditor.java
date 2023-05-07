@@ -25,7 +25,21 @@ public class TextEditor {
         file = new File(filename);
 
         if (!file.exists()) {
-            System.out.println("File not found: " + filename);
+            System.out.println("No existing file: " + filename);
+            System.out.println("Creating" + filename);
+            try {
+                File file = new File(filename);
+                if(filename.contains("/")){
+                    if (!file.getParentFile().exists())
+                        file.getParentFile().mkdirs();
+                    if (!file.exists())
+                        file.createNewFile();
+                }
+                System.out.println("File: " + file);
+                fileOpened = true;
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
             return;
         }
 

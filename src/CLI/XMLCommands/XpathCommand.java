@@ -1,13 +1,14 @@
-package XMLCommands;
+package CLI.XMLCommands;
 
-import CLI.Command;
+import CLI.GeneralCommands.Command;
 import Editor.XMLEditor;
 
-public class SelectCommand implements Command {
+public class XpathCommand implements Command {
+
     private final XMLEditor xmlEditor;
     private final String[] command;
 
-    public SelectCommand(XMLEditor xmlEditor,String[] command) {
+    public XpathCommand(XMLEditor xmlEditor,String[] command) {
         this.xmlEditor = xmlEditor;
         this.command = command;
     }
@@ -19,7 +20,13 @@ public class SelectCommand implements Command {
             System.out.println("No file has been opened");
         }
         else{
-            xmlEditor.select(command);
+            try{
+                xmlEditor.executeXpath(command);
+            } catch (Exception e) {
+                System.out.println("Invalid Xpath syntax");
+            }
+
         }
     }
 }
+

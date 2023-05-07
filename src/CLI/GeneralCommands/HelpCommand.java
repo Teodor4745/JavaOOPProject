@@ -1,4 +1,4 @@
-package CLI;
+package CLI.GeneralCommands;
 
 public class HelpCommand implements Command {
     private static final String HELP_TEXT = """
@@ -12,7 +12,7 @@ public class HelpCommand implements Command {
             set <id> <key> <value>  print the nth child of an element
             text <id>               print the text of an element
             delete <id> <key>       delete attribute by element id and key
-            newchild <id>           add a new child element
+            newchild <id> <name>    add a new child element
             xpath <XPath>           execute XPath
             help                    prints this information
             exit                    exits the program

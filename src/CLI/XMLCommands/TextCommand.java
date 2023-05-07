@@ -1,13 +1,15 @@
-package XMLCommands;
+package CLI.XMLCommands;
 
-import CLI.Command;
+import CLI.GeneralCommands.Command;
 import Editor.XMLEditor;
 
-public class PrintCommand implements Command {
+public class TextCommand implements Command {
     private final XMLEditor xmlEditor;
+    private final String[] command;
 
-    public PrintCommand(XMLEditor xmlEditor) {
+    public TextCommand(XMLEditor xmlEditor,String[] command) {
         this.xmlEditor = xmlEditor;
+        this.command = command;
     }
 
 
@@ -17,7 +19,7 @@ public class PrintCommand implements Command {
             System.out.println("No file has been opened");
         }
         else{
-            xmlEditor.print();
+            xmlEditor.elementText(command);
         }
     }
 }

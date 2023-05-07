@@ -5,8 +5,16 @@ import XMLStructure.Element;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Extracts the data in the file content String into an XML structure.
+ */
 public class DataExtractor {
 
+    /**
+     * @param fileContent string which resembles all the content in the file
+     * @return returns an ArrayList of elements that contains all elements in the file.
+     * Continuously iterates through the String to create different elements as instances of Element class.
+     */
     public ArrayList<Element> extract(String fileContent){
         ArrayList<Element> allElements = new ArrayList<>();
 

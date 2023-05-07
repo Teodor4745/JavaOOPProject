@@ -1,0 +1,22 @@
+<bookstore id="1">
+   <book id="2" isbn="5555" >
+      <title id="6">Clean Code</title>
+      <author id="7">Robert Cecil Martin</author>
+      <price id="8">$40.00</price>
+   </book>
+   <book id="3" isbn="4444" >
+      <title id="9">Harry Potter and the Philosopher's Stone</title>
+      <author id="10">J.K.Rowling</author>
+      <price id="11">$15</price>
+   </book>
+   <book id="4" isbn="3333" >
+      <title id="12">To Kill A Mockingbird</title>
+      <author id="13">Harper Lee</author>
+      <price id="14">$10</price>
+   </book>
+   <book id="5" isbn="6666" >
+      <title id="15">1984</title>
+      <author id="16">George Orwell</author>
+      <price id="17">$12</price>
+   </book>
+</bookstore>
