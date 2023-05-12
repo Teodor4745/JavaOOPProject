@@ -18,7 +18,7 @@ public class CLI {
      * The different commands take different arguments in their constructors.
      * If they must access the file that has been opened they take the TextEditor instance as an argument.
      * If the command must use specific XML logic it also takes the XMLEditor instance as an argument.
-     * Also to get the specific information in the command, the command is also passed.
+     * Also, to get the specific information in the command, the command is also passed.
      */
     public static void run() {
         Scanner scanner = new Scanner(System.in);

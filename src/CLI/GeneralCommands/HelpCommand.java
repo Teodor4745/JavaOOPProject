@@ -1,5 +1,8 @@
 package CLI.GeneralCommands;
 
+/**
+ * Prints out help-text
+ */
 public class HelpCommand implements Command {
     private static final String HELP_TEXT = """
             Available commands:

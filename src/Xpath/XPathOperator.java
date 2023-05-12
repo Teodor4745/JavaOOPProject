@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Used to execute XPath operations on XML structure.
+ * It's field elements resembles the arraylist of all elements in the file.
+ * The hashmap is used to store operations.
+ */
 public class XPathOperator {
     private final ArrayList<Element> elements;
     private final String command;
@@ -15,6 +20,9 @@ public class XPathOperator {
         this.command = command;
     }
 
+    /**
+     * This method extracts the XPath operations into a HashMap from the user input.
+     */
     public void extractXpath(){
 
         xpathMap = new LinkedHashMap<>();
@@ -118,6 +126,15 @@ public class XPathOperator {
 
     }
 
+    /**
+     * This method iterates the hashmap of XPath instructions, parsed in the extractXpath method.
+     * We create another arraylist which will contain the targeted elements.
+     * With every instruction the new arraylist of elements is also iterated. If elements follow the
+     * instructions, they are kept. If not, they are removed.
+     * When we start the next iteration of instructions, the targeted elements are the
+     * children of the elements kept in the previous iteration.
+     * Lastly, depending on the instructions, the desired text is printed into the console.
+     */
     public void runXpathInstructions(){
         ArrayList<Element> newElements = new ArrayList<>();
         boolean firstOperation = true;

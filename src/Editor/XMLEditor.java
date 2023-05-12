@@ -9,10 +9,22 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * This class provides the XML logic used in the XML commands.
+ * the String fileContent is passed from the TextEditor and then altered.
+ * We use an arraylist of elements to store all the XML elements.
+ * The order of the elements in the arraylist must be as it is in the file,
+ * since all the algorithms iterate this arraylist.
+ */
 public class XMLEditor {
     private String fileContent;
     private ArrayList<Element> elements;
 
+    /**
+     * @param fileContent the content of the file(passed by the TextEditor).
+     * This method extracts the text content into an XML structure. it also validates it
+     * to follow our rules.
+     */
     public void open(String fileContent) {
         this.fileContent = fileContent;
         DataExtractor dataExtractor = new DataExtractor();
@@ -21,6 +33,11 @@ public class XMLEditor {
         toText();
     }
 
+    /**
+     * This method transforms our new XML structure into a String which is
+     * formatted as an XML file. the Algorithm iterates the arraylist
+     * and transforms the elements into text.
+     */
     public void toText() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Element element : elements) {
@@ -35,7 +52,7 @@ public class XMLEditor {
 
         ArrayList<Element> newElements = new ArrayList<>(elements);
         for (Element element : elements) {
-            if(!newElements.contains(element)){
+            if (!newElements.contains(element)) {
                 continue;
             }
 
@@ -47,7 +64,7 @@ public class XMLEditor {
             }
             stringBuilder.append(">");
 
-         if (element.getText() != null) {
+            if (element.getText() != null) {
                 stringBuilder.append(element.getText());
             } else {
                 stringBuilder.append('\n');
@@ -70,26 +87,25 @@ public class XMLEditor {
                     } else {
                         break;
                     }
-
                 }
-
-
             }
-
-
-
-
-
-
         }
         this.fileContent = stringBuilder.toString();
     }
 
+    /**
+     * Prints the String which contains our formatted XML structure.
+     */
     public void print() {
         toText();
         System.out.println(fileContent);
     }
 
+    /**
+     * @param command used to extract the ID and Key from the user input.
+     * The method iterates through the arraylist until an element with the ID and attribute Key is found.
+     * If found, it prints it's value.
+     */
     public void select(String[] command) {
         if (command.length != 3) {
             System.out.println("Wrong number of arguments. command is: select <id> <key>");
@@ -101,16 +117,20 @@ public class XMLEditor {
         Element element = findElementById(id);
         if (element == null) {
             System.out.println("No element with such id");
-        }
-        else{
+        } else {
             for (Map.Entry<String, String> set : element.getAttributes().entrySet()) {
-                if(set.getKey().equals(key)){
+                if (set.getKey().equals(key)) {
                     System.out.println(set.getKey() + "=" + set.getValue());
                 }
             }
         }
     }
 
+    /**
+     * @param command used to extract the ID, Key and Value from the user input.
+     * The method iterates through the arraylist of elements until it finds an element
+     * with the given key and value. Then it changes it's attribute's value.
+     */
     public void set(String[] command) {
         if (command.length != 4) {
             System.out.println("Wrong number of arguments. command is: set <id> <key> <value>");
@@ -120,7 +140,7 @@ public class XMLEditor {
         String key = command[2];
         String value = command[3];
 
-        if(key.equals("id")){
+        if (key.equals("id")) {
             System.out.println("Cannot change id attribute");
             return;
         }
@@ -128,8 +148,7 @@ public class XMLEditor {
         Element element = findElementById(id);
         if (element == null) {
             System.out.println("No element with such id");
-        }
-        else{
+        } else {
             for (Map.Entry<String, String> set : element.getAttributes().entrySet()) {
                 if (set.getKey().equals(key)) {
                     set.setValue(value);
@@ -142,6 +161,12 @@ public class XMLEditor {
         }
     }
 
+    /**
+     * @param command used to extract the ID from the user input.
+     * If an object in the arraylist of elements with such id is found,
+     * it's innerelements(field in the object which is arraylist) is iterated.
+     * it's children are printed.
+     */
     public void children(String[] command) {
         if (command.length != 2) {
             System.out.println("Wrong number of arguments. command is: children <id>");
@@ -163,7 +188,7 @@ public class XMLEditor {
                     } else {
                         System.out.println("Element " + childElement.getTagName() + " has no attributes");
                     }
-                    if(childElement.getText() != null){
+                    if (childElement.getText() != null) {
                         System.out.println(childElement.getTagName() + " has text:" + childElement.getText());
                     }
                     System.out.println('\n');
@@ -176,6 +201,11 @@ public class XMLEditor {
 
     }
 
+    /**
+     * @param command used to extract the ID from the user input.
+     * used to display the n-th child of an element. If an element with such ID is found
+     * in the arraylist of elements. It's n-th child(in the Element's arraylist innerelements) is diplayed.
+     */
     public void child(String[] command) {
         if (command.length != 3) {
             System.out.println("Wrong number of arguments. command is: child <id> <n>");
@@ -202,6 +232,11 @@ public class XMLEditor {
         }
     }
 
+    /**
+     * @param command used to extract the ID from the user input.
+     * if an element with such ID in the arraylist of elements is found,
+     * and it has Text, it is displayed into the console.
+     */
     public void elementText(String[] command) {
         if (command.length != 2) {
             System.out.println("Wrong number of arguments. command is: text <id>");
@@ -220,6 +255,14 @@ public class XMLEditor {
         }
     }
 
+    /**
+     * @param command used to extract the ID and Name from the user input.
+     * If an element with such ID is found in the arraylist of elements,
+     * The new child is created and added either
+     * as its first child(if the element doesn't have children)
+     * as its last child(if the element has children)
+     * the new child is also added in the arraylist of all elements in the correct position.
+     */
     public void newChild(String[] command) {
         if (command.length != 3) {
             System.out.println("Wrong number of arguments. command is: newchild <id> <name>");
@@ -235,25 +278,24 @@ public class XMLEditor {
             newChild.setTagName(name);
             newChild.setParent(element);
             int index = 0;
-                for(int i = 0; i<elements.size(); i++){
-                    if(element.equals(elements.get(i))){
-                        if(element.getInnerElements().size() == 0){
-                            index = i+1;
+            for (int i = 0; i < elements.size(); i++) {
+                if (element.equals(elements.get(i))) {
+                    if (element.getInnerElements().size() == 0) {
+                        index = i + 1;
+                    } else {
+                        Element counterElement = element;
+                        while (counterElement.getInnerElements().size() > 0) {
+                            counterElement = counterElement.getInnerElements().get(counterElement.getInnerElements().size() - 1);
                         }
-                        else{
-                            Element counterElement = element;
-                            while (counterElement.getInnerElements().size() > 0){
-                                counterElement = counterElement.getInnerElements().get(counterElement.getInnerElements().size()-1);
-                            }
-                            for(int t = i; t<elements.size();t++){
-                                if(counterElement.equals(elements.get(t))){
-                                    index = t+1;
-                                }
+                        for (int t = i; t < elements.size(); t++) {
+                            if (counterElement.equals(elements.get(t))) {
+                                index = t + 1;
                             }
                         }
                     }
                 }
-                elements.add(index,newChild);
+            }
+            elements.add(index, newChild);
             element.getInnerElements().add(newChild);
             DataValidator dataValidator = new DataValidator();
             elements = dataValidator.validate(elements);
@@ -261,6 +303,11 @@ public class XMLEditor {
         }
     }
 
+    /**
+     * @param command used to extract the ID and Key from the user input.
+     * If an element with such ID is found and it has an attribute with the given key,
+     * the attribute is deleted from the Element's hashmap of attributes.
+     */
     public void deleteAttribute(String[] command) {
         if (command.length != 3) {
             System.out.println("Wrong number of arguments. command is: delete <id> <key>");
@@ -289,14 +336,22 @@ public class XMLEditor {
 
     }
 
+    /**
+     * @param depth the depth of the XML element.
+     * @return a String of empty spaces(indent) based on the depth of the element.
+     */
     public String getIndent(int depth) {
-        return "   ".repeat(Math.max(0, depth-1));
+        return "   ".repeat(Math.max(0, depth - 1));
     }
 
     public String getFileContent() {
         return fileContent;
     }
 
+    /**
+     * @param id element ID
+     * @return an element with the following ID if it exists.
+     */
     public Element findElementById(String id) {
         for (Element element : elements) {
             for (Map.Entry<String, String> set : element.getAttributes().entrySet()) {
@@ -308,12 +363,16 @@ public class XMLEditor {
         return null;
     }
 
-    public void executeXpath(String[] command){
+    /**
+     * @param command used for extracting xpath from user input.
+     * Creates an instance of the XPathOperator class which is used for executing XPath on our XML structure.
+     */
+    public void executeXpath(String[] command) {
         if (command.length != 2) {
             System.out.println("Wrong number of arguments. command is: xpath <xpath>");
             return;
         }
-        XPathOperator xPathOperator = new XPathOperator(elements,command[1]);
+        XPathOperator xPathOperator = new XPathOperator(elements, command[1]);
         xPathOperator.extractXpath();
         xPathOperator.runXpathInstructions();
 
