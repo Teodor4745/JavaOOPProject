@@ -38,7 +38,7 @@ public class TextEditor {
 
         if (!file.exists()) {
             System.out.println("No existing file: " + filename);
-            System.out.println("Creating" + filename);
+            System.out.println("Creating: " + filename);
             try {
                 File file = new File(filename);
                 if(filename.contains("/")){
