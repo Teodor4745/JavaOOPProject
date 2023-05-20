@@ -1,4 +1,4 @@
-package CLI;
+import CLI.CLI;
 
 /**
  * Runs the static method of the CLI class which launches the Command Line Interface
