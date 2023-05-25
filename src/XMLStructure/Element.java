@@ -2,12 +2,18 @@ package XMLStructure;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
+/**
+ * This class resembles an XML element.
+ * Every element has fields: tag name, attributes, inner elements and text.
+ * It also has fields: parent and depth. Having these fields greatly helps with operations and algorithms with any element.
+ * The constructor only initializes the fields that are collections.
+ * The methods are getters and setters. They let us access the element's fields.
+ */
 public class Element {
     private String tagName;
     private HashMap<String,String> attributes;
-    private ArrayList<Element> innerElements;
+    private final ArrayList<Element> innerElements;
 
     private Element parent;
 
@@ -16,8 +22,8 @@ public class Element {
     private Integer depth;
 
     public Element() {
-        this.innerElements = new ArrayList<Element>();
-        this.attributes = new HashMap<String,String>();
+        this.innerElements = new ArrayList<>();
+        this.attributes = new HashMap<>();
     }
 
     public String getTagName() {
@@ -38,10 +44,6 @@ public class Element {
 
     public ArrayList<Element> getInnerElements() {
         return innerElements;
-    }
-
-    public void setInnerElements(ArrayList<Element> innerElements) {
-        this.innerElements = innerElements;
     }
 
     public Integer getDepth() {
@@ -68,13 +70,5 @@ public class Element {
         this.text = text;
     }
 
-    public Element getChildByTagName(String tagName){
-        for(int i = 0;i<innerElements.size();i++){
-            if(Objects.equals(innerElements.get(i).getTagName(), tagName)){
-                return innerElements.get(i);
-            }
 
-        }
-        return null;
-    }
 }
