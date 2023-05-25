@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="JavaOOPProject:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/JavaOOPProject_jar</output-path>
+    <root id="archive" name="JavaOOPProject.jar">
+      <element id="module-output" name="JavaOOPProject" />
+    </root>
+  </artifact>
+</component>
