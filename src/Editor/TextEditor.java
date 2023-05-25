@@ -53,6 +53,7 @@ public class TextEditor {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
+            content = "";
             while ((line = reader.readLine()) != null) {
                 content += line + "\n";
             }

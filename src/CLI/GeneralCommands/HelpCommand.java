@@ -10,7 +10,7 @@ public class HelpCommand implements Command {
             Available commands:
             open <file>             opens file
             save                    saves the currently open file
-            saveas                  saves the currently open file in <file>
+            saveas <file>           saves the currently open file in <file>
             close                   close the current file
             print                   prints xml file content
             select <id> <n>         print attribute by element id and attribute key
